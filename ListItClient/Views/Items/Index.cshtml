@@ -1,0 +1,75 @@
+@model IEnumerable<ListItClient.Models.ItemsViewModel>
+<h2>Items</h2>
+<table class="table">
+    
+    <thead>
+        <tr>
+            <th>Status</th>
+            <th>Antal</th>
+            <th>Namn</th>
+            <th>Avdelning</th>
+        </tr>
+    </thead>
+
+   
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                
+                <td>
+                    <div class="btn-group" role="group">
+                        <form method="post" asp-action="ToggleStatus">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-secondary"><i class="btn btn-primary"></i></button>
+                        </form>
+                    </div>
+                    @(item.Done ? "Klar" : " ")
+                </td>
+
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td> <button type="submit" value=asp-action="Delete" class="btn btn-secondary"><i class="btn btn-primary"></i></button></td>
+            </tr>
+           
+        }
+       
+    </tbody>
+</table>
+
+
+<h5 class="card-title">Add Item</h5>
+<form method="post" asp-action="Create">
+    
+    <div class="mb-3">
+        <label for="amount" class="form-label">Amount:</label>
+        <input type="text" class="form-control" name="Amount" id="amount" />
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Name:</label>
+        <input type="text" class="form-control" name="Name" id="name" />
+    </div>
+    <div class="mb-3">
+        <label for="type" class="form-label">Type:</label>
+        <input type="text" class="form-control" name="Type" id="type" />
+    </div>
+
+    
+    <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Add Item</button>
+    </div>
+</form>
+
+
+<form method="post" asp-action="DeleteDone">
+    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Ta Bort Klara</button>
+</form>
+
